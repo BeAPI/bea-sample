@@ -1,2 +1,2 @@
-# bea-sample
+# BEA Sample
 Samples of ressources.
