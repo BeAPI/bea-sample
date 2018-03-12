@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteCond %{HTTP_USER_AGENT} Googlebot [OR]
+RewriteCond %{HTTP_USER_AGENT} AdsBot-Google [OR]
+RewriteCond %{HTTP_USER_AGENT} msnbot [OR]
+RewriteCond %{HTTP_USER_AGENT} AltaVista [OR]
+RewriteCond %{HTTP_USER_AGENT} Slurp
+RewriteRule . - [G,L]
