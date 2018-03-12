@@ -160,7 +160,7 @@ sitemap.xml.gz
 
 ### WordPress Composer ###
 /wp/
-#/salt.php
+salt.php
 content/uploads/
 content/blogs.dir/
 content/upgrade/
