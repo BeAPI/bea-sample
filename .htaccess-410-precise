@@ -1,0 +1,5 @@
+RewriteRule ^/wp-content/uploads/2017/01/CV_RF-Continue.pdf$ - [G,NC]
+RewriteRule ^/wp-content/uploads/2017/01/CV.pdf$ - [G,NC]
+RewriteRule ^/wp-content/uploads/2017/01/LM.pdf$ - [G,NC]
+RewriteRule ^/wp-content/uploads/2016/11/lettre_motivation_XT.pdf$ - [G,NC]
+RewriteRule ^/wp-content/uploads/2016/07/201606-CV-FR-v1.pdf$ - [G,NC]
