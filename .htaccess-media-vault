@@ -1,0 +1,5 @@
+# Media Vault Rewrite Rules
+RewriteRule ^content/uploads(/_mediavault/.*\.\w+)$ index.php?mgjp_mv_file=$1 [QSA,L]
+RewriteCond %{QUERY_STRING} ^(?:.*&)?mgjp_mv_download=safeforce(?:&.*)?$
+RewriteRule ^content/uploads(/.*\.\w+)$ index.php?mgjp_mv_file=$1 [QSA,L]
+# Media Vault Rewrite Rules End
