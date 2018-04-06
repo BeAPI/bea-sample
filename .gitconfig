@@ -1,0 +1,53 @@
+[user]
+        name =
+        email =
+[color]
+        ui = auto
+[alias]
+        st = status
+        ci = commit
+        lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
+[core]
+        pager = cat
+        #
+        # Out of luck: on Windows w/o msysGit? You may have Notepad++â€¦
+        # editor = 'C:/Program Files/Sublime Text 3/sublime_text.exe' -multiInst -notabbar -nosession -noPlugin
+        # 
+        # If you want to use Sublime Text 2's subl wrapper:
+        # editor = subl -w
+        # 
+        whitespace = -trailing-space
+        excludesfile = ~/.gitignore_global
+[diff]
+        mnemonicPrefix = true
+        wordRegex = .
+[fetch]
+        recurseSubmodules = on-demand
+[grep]
+        extendedRegexp = true
+[log]
+        abbrevCommit = true
+[merge]
+        conflictStyle = diff3
+[mergetool]
+        keepBackup = false
+        keepTemporaries = false
+        prompt = false
+
+[rebase]
+        # this allows pull rebase even if your working tree is not clean
+         autoStash = true
+[pull]
+        # This is GREATâ€¦ when you know what you're doing and are careful
+        # not to pull --no-rebase over a local line containing a true merge.
+        rebase = true
+[push]
+        default = upstream
+[rerere]
+        # If, like me, you like rerere, decomment these
+        # autoupdate = true
+        # enabled = true
+[status]
+        submoduleSummary = true
+[branch]
+        autosetuprebase = always
