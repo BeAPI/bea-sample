@@ -57,6 +57,7 @@
         lsf = ls-files --others
 
         # set remote ssh
+        # example : git rem my-project
         rem = "!f() { git remote set-url origin git@bitbucket.org:beapi/$1.git; }; f"
 
         # see ignored files
@@ -65,6 +66,11 @@
         # run interactive rebase
         order = "!f() { git rebase -i HEAD~$1; }; f"
 
+        # delete local & remote branch in the same time
+        nuke = !sh -c 'git branch -D $1 && git push origin :$1' -
+
+        # review before push
+        review-local = "!git lg @{push}.."
 [core]
         pager = cat
         #
