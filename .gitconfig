@@ -58,6 +58,7 @@
 
         # set remote ssh
         # example : git rem my-project
+        # where my-project is your remote repository https://bitbucket.org/beapi/my-project
         rem = "!f() { git remote set-url origin git@bitbucket.org:beapi/$1.git; }; f"
 
         # see ignored files
