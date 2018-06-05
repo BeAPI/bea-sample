@@ -4,9 +4,74 @@
 [color]
         ui = auto
 [alias]
+
+        # get current status
         st = status
+
+        # add a commit
         ci = commit
+
+        # display nicely git history
         lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
+
+        # get last commit with a nice display
+        last = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset' -1
+
+        # see list of files modified, added
+        # in last commit
+        files = show --pretty=oneline --name-only
+
+        # take typo and keyboard errors into account
+        chekcout = checkout
+        fethc = fetch
+        plu   = pull
+        psu   = push
+
+        # shortcuts for very common command
+        co = checkout
+        cob = checkout -b
+        cp = cherry-pick
+        b = branch
+        bd = branch -d
+        bD = branch -D
+        ba = branch -a
+        bl = blame
+        undo = reset --hard
+        unadd = reset HEAD
+        pus = push
+        pul = pull
+        reb = rebase master
+
+        # pull, merge, push automatically
+        mergein = "!f() { git checkout $1 && git pull && git merge - --commit && git push && git checkout - ; }; f"
+
+        # handle amend without having to edit commit text
+        # for example: you forgot 1  file in your last commit
+        # just run git add yourfile and then git cam
+        cam = "!f() { git add --all && git commit --amend --no-edit; }; f"
+
+        # set upstream
+        setup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+
+        # see untracked files
+        lsf = ls-files --others
+
+        # set remote ssh
+        # example : git rem my-project
+        # where my-project is your remote repository https://bitbucket.org/beapi/my-project
+        rem = "!f() { git remote set-url origin git@bitbucket.org:beapi/$1.git; }; f"
+
+        # see ignored files
+        ignored = ls-files --others -i --exclude-standard
+
+        # run interactive rebase
+        order = "!f() { git rebase -i HEAD~$1; }; f"
+
+        # delete local & remote branch in the same time
+        nuke = !sh -c 'git branch -D $1 && git push origin :$1' -
+
+        # review before push
+        review-local = "!git lg @{push}.."
 [core]
         pager = cat
         #
