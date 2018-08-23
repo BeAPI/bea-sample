@@ -1,0 +1,105 @@
+# ----------------------------------------------------------------------
+# | START - BE API SECURITY                                            |
+# ----------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+	# X content type
+    Header set X-Content-Type-Options "nosniff"
+
+	# Strict-Transport-Security
+	Header always set Strict-Transport-Security "max-age=500; includeSubDomains; preload"
+
+	# X-Frame-Options
+	Header always append X-Frame-Options SAMEORIGIN
+
+	# XSS Protection
+	Header set X-XSS-Protection "1; mode=block"
+
+	<FilesMatch "\.(appcache|atom|bbaw|bmp|crx|css|cur|eot|f4[abpv]|flv|geojson|gif|htc|ico|jpe?g|js|json(ld)?|m4[av]|manifest|map|mp4|oex|og[agv]|opus|otf|pdf|png|rdf|rss|safariextz|svgz?|swf|topojson|tt[cf]|txt|vcard|vcf|vtt|webapp|web[mp]|webmanifest|woff2?|xloc|xml|xpi)$">
+		Header unset X-XSS-Protection
+	</FilesMatch>
+
+
+	# Remove powered By
+	Header unset X-Powered-By
+
+	# Force secure cookies
+	Header always edit Set-Cookie (.*) "$1; HTTPOnly; Secure"
+
+	# CORS on fonts
+	<FilesMatch "\.(eot|otf|tt[cf]|woff2?)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+
+    # Remove Etags
+    Header unset ETag
+</IfModule>
+
+# Cross-origin images
+<IfModule mod_setenvif.c>
+    <IfModule mod_headers.c>
+        <FilesMatch "\.(bmp|cur|gif|ico|jpe?g|png|svgz?|webp)$">
+            SetEnvIf Origin ":" IS_CORS
+            Header set Access-Control-Allow-Origin "*" env=IS_CORS
+        </FilesMatch>
+    </IfModule>
+</IfModule>
+
+
+# Block WP common files
+<FilesMatch "^(readme.html|license.txt|LICENSE|CHANGELOG|INSTALL|BUGS|error_log|wp-config.php|php.ini|.[hH][tT][aApP].*)">
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</FilesMatch>
+
+# BEGIN Protect xmlrpc
+<IfModule mod_alias.c>
+        RedirectMatch 403 /xmlrpc.php
+</IfModule>
+# END Protect xmlrpc
+
+# Block access to the following file types, i.e. filename.type
+<FilesMatch "(^#.*#|\.(yml|yaml|bak|md|config|ini|conf|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$">
+
+    # Apache < 2.3
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+        Satisfy All
+    </IfModule>
+
+    # Apache >= 2.3
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+
+</FilesMatch>
+
+# Do not allow indexes
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+
+# Block dot files
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} "!(^|/)\.well-known/([^./]+./?)+$" [NC]
+    RewriteCond %{SCRIPT_FILENAME} -d [OR]
+    RewriteCond %{SCRIPT_FILENAME} -f
+    RewriteRule "(^|/)\." - [F]
+</IfModule>
+
+# Secure all .git directories and .git files + composer files
+<IfModule mod_alias.c>                                                                                                                         
+        RedirectMatch 404 /\.git
+        RedirectMatch 404 composer.json
+        RedirectMatch 404 composer.lock
+</IfModule>
+
+# Do not send server signature
+ServerSignature Off
+
+# ----------------------------------------------------------------------
+# | END - BE API SECURITY                                              |
+# ----------------------------------------------------------------------
