@@ -84,7 +84,7 @@
         whitespace = -trailing-space
         excludesfile = ~/.gitignore_global
 [diff]
-        mnemonicPrefix = true
+        mnemonicPrefix = false
         wordRegex = .
 [fetch]
         recurseSubmodules = on-demand
