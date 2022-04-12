@@ -83,6 +83,7 @@
         # 
         whitespace = -trailing-space
         excludesfile = ~/.gitignore_global
+        ignorecase = false
 [diff]
         mnemonicPrefix = false
         wordRegex = .
